@@ -30,10 +30,20 @@ console.log('#14. JavaScript homework example file')
 
 async function getData(segment) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`https://jsonplaceholder.typicode.com${segment}`, {
+      method: 'GET',
+  });
+    
+    if (!response.ok) {
+      return response.status; // повертаємо статус помилки
+    }
+    
+    const data = await response.json();
+    console.log(data); // логування отриманих даних
+    return data; // повертаємо отримані дані
   } catch (error) {
-    // code here
+    console.error('Error during fetch:', error); // логування помилки
+    return error.message; // повертаємо текст помилки
   }
 }
 
@@ -65,10 +75,24 @@ async function getData(segment) {
 
 async function postData(segment, data) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`https://jsonplaceholder.typicode.com${segment}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      return `HTTP error! status: ${response.status}`; // повертаємо повідомлення про помилку
+    }
+
+    const result = await response.json();
+    console.log(result); // логування отриманих даних
+    return result; // повертаємо отримані дані
   } catch (error) {
-    // code here
+    console.error('Error during fetch:', error); // логування помилки
+    return error.message; // повертаємо текст помилки
   }
 }
 
@@ -100,10 +124,24 @@ async function postData(segment, data) {
 
 async function putData(id, data) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      return `Error: ${response.status}`; // повертаємо повідомлення про помилку
+    }
+
+    const result = await response.json();
+    console.log(result); // логування отриманих даних
+    return result; // повертаємо отримані дані
   } catch (error) {
-    // code here
+    console.error('Error during fetch:', error); // логування помилки
+    return error.message; // повертаємо текст помилки
   }
 }
 
@@ -135,10 +173,24 @@ async function putData(id, data) {
 
 async function patchData(id, data) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (!response.ok) {
+      return `Error: ${response.status}`; // повертаємо повідомлення про помилку
+    }
+
+    const result = await response.json();
+    console.log(result); // логування отриманих даних
+    return result; // повертаємо отримані дані
   } catch (error) {
-    // code here
+    console.error('Error during fetch:', error); // логування помилки
+    return error.message; // повертаємо текст помилки
   }
 }
 
@@ -172,10 +224,20 @@ async function patchData(id, data) {
 
 async function deleteData(id) {
   try {
-    // const response = await fetch(...)
-    // code here
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
+      method: 'DELETE'
+    });
+
+    if (response.ok) {
+      console.log(`Post with id ${id} has been successfully deleted.`);
+      return true; // повертаємо true при успішному видаленні
+    } else {
+      console.error(`Failed to delete post with id ${id}. Status: ${response.status}`);
+      return response.status; // повертаємо статус помилки
+    }
   } catch (error) {
-    // code here
+    console.error(`Error during deletion: ${error.message}`); // логування помилки
+    return error.message; // повертаємо текст помилки
   }
 }
 
